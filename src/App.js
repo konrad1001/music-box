@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import * as Tone from 'tone';
+import React, { useEffect, useState } from 'react';
+import Home from './containers/Home';
 
 function App() {
+
+  const [isAudioReady, setIsAudioReady] = useState(true); // Track audio readiness
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isAudioReady ? (
+        <Home />
+      ) : (
+        <button onClick={() => {
+          Tone.start().then(() => {
+            setIsAudioReady(true);
+          });
+        }}>Start Audio</button>
+      )
+      }
     </div>
   );
 }
